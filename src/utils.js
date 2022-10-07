@@ -3,9 +3,7 @@
  * @param {Object} obj 
  * @returns A frozen object with all its frozen nested objects / functions.
  */
-export const deepFreeze = (obj : Object) => {
-  Object.freeze(obj);
-
+export const deepFreeze = (obj) => {
   if (typeof obj === 'undefined') {
     return obj;
   }
@@ -19,5 +17,5 @@ export const deepFreeze = (obj : Object) => {
     }
   });
 
-  return obj;
+  return Object.freeze(obj);
 }

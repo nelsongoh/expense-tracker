@@ -6,12 +6,12 @@ xSpencr is an expense-tracking web application which allows users to add their e
 
 This is a work-in-progress personal project, and aims to include several features such as:
 
-[ ] Signing in / up with a federated identity provider (e.g. Google, Facebook, Apple)
-[ ] Add an individual expense item
-[ ] View all logged expense items
-[ ] View a dashboard of all logged expenses
-[ ] Filter expenses by type
-[ ] And more!
+- [ ] Signing in / up with a federated identity provider (e.g. Google, Facebook, Apple)
+- [ ] Add an individual expense item
+- [ ] View all logged expense items
+- [ ] View a dashboard of all logged expenses
+- [ ] Filter expenses by type
+- [ ] And more!
 
 ## Available Scripts
 

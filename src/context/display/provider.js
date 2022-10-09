@@ -6,6 +6,7 @@ import DisplayContext from './context';
 const DisplayProvider = ({ children }) => {
   const theme = useTheme();
   const isCurrMobileDisplay = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [displayState, setDisplayState] = useState({
     isMobileDisplay: isCurrMobileDisplay,
     setIsMobileDisplay: (mobileDisplayState) => {

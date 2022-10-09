@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import DisplayContext from "../../context/display/context";
-import RegisterForm from "../../components/Forms/Register";
+import AuthForm from "../../components/Forms/Auth";
 
 const LandingScene = () => {
   const { isMobileDisplay } = useContext(DisplayContext);
 
   return (
-    <RegisterForm isMobileDisplay={isMobileDisplay}/>
+    <AuthForm isMobileDisplay={isMobileDisplay} />
   );
 }
 

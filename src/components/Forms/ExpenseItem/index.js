@@ -43,6 +43,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
 
   const validateFormErrors = () => {
     setErrorMsgs(validateExpenseItem(expense));
+    // TODO: If there are no errors, proceed to write the data to Firestore
   };
 
   return (
@@ -60,7 +61,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                 <TextField
                   label={Constants.CONTENT.FORMS.EXPENSE.PAYMENT_MODE_FIELD}
                   helperText={isMobileDisplay ? "" : Constants.CONTENT.FORMS.EXPENSE.PAYMENT_MODE_FIELD_HELPER}
-                  error={errorMsgs.paymentMode}
+                  error={errorMsgs.paymentMode !== null}
                   select
                   required
                   value={expense.paymentMode}
@@ -77,7 +78,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                 <TextField
                   label={Constants.CONTENT.FORMS.EXPENSE.ISSUER_TYPE_FIELD}
                   helperText={isMobileDisplay ? "" : Constants.CONTENT.FORMS.EXPENSE.ISSUER_TYPE_FIELD_HELPER}
-                  error={errorMsgs.issuerType}
+                  error={errorMsgs.issuerType !== null}
                   select
                   required
                   value={expense.issuerType}
@@ -96,7 +97,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                 <TextField
                   label={Constants.CONTENT.FORMS.EXPENSE.CURRENCY_FIELD}
                   helperText={isMobileDisplay ? "" : Constants.CONTENT.FORMS.EXPENSE.CURRENCY_FIELD_HELPER}
-                  error={errorMsgs.currency}
+                  error={errorMsgs.currency !== null}
                   select
                   required
                   value={expense.currency}
@@ -117,7 +118,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                     errorMsgs.amt === null ? Constants.CONTENT.FORMS.EXPENSE.AMOUNT_FIELD_HELPER :
                     errorMsgs.amt
                   }
-                  error={errorMsgs.amt}
+                  error={errorMsgs.amt !== null}
                   required
                   value={expense.amt}
                   onChange={(e) => handleUpdateExpenseField("amt", e.target.value)}
@@ -137,7 +138,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                 dateYYYYMMDD={expense.date} 
                 updateDate={handleUpdateDateField}
                 label={Constants.CONTENT.FORMS.EXPENSE.DATE_FIELD}
-                error={errorMsgs.date}
+                errorMessage={errorMsgs.date}
                 helperText={Constants.CONTENT.FORMS.EXPENSE.DATE_FIELD_HELPER}
                 sx={formStyles.textField}
               />
@@ -149,7 +150,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                   errorMsgs.title === null ? Constants.CONTENT.FORMS.EXPENSE.EXPENSE_TITLE_FIELD_HELPER :
                   errorMsgs.title
                 }
-                error={errorMsgs.title}
+                error={errorMsgs.title !== null}
                 value={expense.title}
                 required
                 onChange={(e) => handleUpdateExpenseField("title", e.target.value)}

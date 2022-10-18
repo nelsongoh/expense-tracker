@@ -34,7 +34,7 @@ const validateExpenseItem = (formFields) => {
   }
 
   // Validate the date
-  if (!dayjs(formValidity["date"], 'YYYY-MM-DD', true).isValid()) {
+  if (!(dayjs(formFields["date"], Constants.FORMATS.DATE.YEAR_MONTH_DATE, true).isValid())) {
     formValidity["date"] = Constants.ERROR_MESSAGES.FORMS.EXPENSE.DATE;
   }
 

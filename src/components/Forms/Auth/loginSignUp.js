@@ -1,5 +1,5 @@
 import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth"
-import firebaseApp from "../../../firebase";
+import { firebaseApp } from "../../../firebase";
 
 const loginSignUp = async () => {
   const provider = new GoogleAuthProvider();

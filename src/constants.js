@@ -5,6 +5,7 @@ const Constants = Object.freeze({
   }),
   COLLECTIONS: Object.freeze({
     EXPENSE: "Expense",
+    EXPENSE_SUBCOLLECTION_ENTRY: "Entry"
   }),
   CONTENT: Object.freeze({
     FORMS: Object.freeze({

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import AuthContext from './context';
-import firebaseApp from '../../firebase';
+import { firebaseApp } from '../../firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import FullScreenSpinner from '../../components/Spinner';
 

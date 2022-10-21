@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import AuthContext from '../../../context/auth/context';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -7,13 +8,18 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import AppDatePicker from '../../AppDatePicker';
 import Styles from './styles';
 import Constants from '../../../constants';
 import validateExpenseItem from './validation';
+import { createExpenseEntry } from '../../../dao/expense';
 
 const ExpenseItem = ({ isMobileDisplay }) => {
   const formStyles = Styles(isMobileDisplay);
+  const authUser = useContext(AuthContext);
+
   const [expense, setExpense] = useState({
     amt: "",
     title: "",
@@ -33,20 +39,47 @@ const ExpenseItem = ({ isMobileDisplay }) => {
     currency: null
   });
 
+  const [createExpenseOutcome, setCreateExpenseOutcome] = useState(null);
+
   const handleUpdateExpenseField = (field, newValue) => {
     setExpense({...expense, [field]: newValue});
   }
 
   const handleUpdateDateField = (newValue) => {
-    setExpense({...expense, date: newValue.format('YYYY-MM-DD')});
+    setExpense({...expense, date: newValue.format(Constants.FORMATS.DATE.YEAR_MONTH_DATE)});
   }
 
-  const validateFormErrors = () => {
+  const writeExpenseEntry = async () => {
     setErrorMsgs(validateExpenseItem(expense));
+    const isExpenseEntryValid = Object.values(errorMsgs).every((value) => value === null);
+    if (isExpenseEntryValid) {
+      if (authUser) {
+        const outcome = await createExpenseEntry(expense, authUser.uid);
+        if (outcome.isSuccess) {
+          setCreateExpenseOutcome(Constants.SUCCESS_MESSAGES.FORMS.EXPENSE);
+        } else {
+          setCreateExpenseOutcome(Constants.ERROR_MESSAGES.FORMS.EXPENSE.CREATE_FAIL);
+        }
+      } else {
+        setCreateExpenseOutcome(Constants.ERROR_MESSAGES.MUST_BE_LOGGED_IN);
+      }
+    }
   };
 
+  // TODO: Need more error / success states to display different severity types for the MuiAlert
   return (
     <Box display="flex" justifyContent="center" alignItems="center" maxHeight="100vh" sx={formStyles.box}>
+      <Snackbar 
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+        open={createExpenseOutcome !== null}
+        autoHideDuration={9000}
+        onClose={() => setCreateExpenseOutcome(null)}
+        key={'topcenter'}
+      >
+        <MuiAlert variant='filled' severity='success' onClose={() => setCreateExpenseOutcome(null)}>
+          {createExpenseOutcome}
+        </MuiAlert>
+      </Snackbar>
       <Grid container direction="column" alignItems="center" spacing={3}>
         <Paper variant='outlined' sx={formStyles.paper}>
           <Grid container direction="column" spacing={3}>
@@ -60,7 +93,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                 <TextField
                   label={Constants.CONTENT.FORMS.EXPENSE.PAYMENT_MODE_FIELD}
                   helperText={isMobileDisplay ? "" : Constants.CONTENT.FORMS.EXPENSE.PAYMENT_MODE_FIELD_HELPER}
-                  error={errorMsgs.paymentMode}
+                  error={errorMsgs.paymentMode !== null}
                   select
                   required
                   value={expense.paymentMode}
@@ -77,7 +110,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                 <TextField
                   label={Constants.CONTENT.FORMS.EXPENSE.ISSUER_TYPE_FIELD}
                   helperText={isMobileDisplay ? "" : Constants.CONTENT.FORMS.EXPENSE.ISSUER_TYPE_FIELD_HELPER}
-                  error={errorMsgs.issuerType}
+                  error={errorMsgs.issuerType !== null}
                   select
                   required
                   value={expense.issuerType}
@@ -96,7 +129,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                 <TextField
                   label={Constants.CONTENT.FORMS.EXPENSE.CURRENCY_FIELD}
                   helperText={isMobileDisplay ? "" : Constants.CONTENT.FORMS.EXPENSE.CURRENCY_FIELD_HELPER}
-                  error={errorMsgs.currency}
+                  error={errorMsgs.currency !== null}
                   select
                   required
                   value={expense.currency}
@@ -117,7 +150,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                     errorMsgs.amt === null ? Constants.CONTENT.FORMS.EXPENSE.AMOUNT_FIELD_HELPER :
                     errorMsgs.amt
                   }
-                  error={errorMsgs.amt}
+                  error={errorMsgs.amt !== null}
                   required
                   value={expense.amt}
                   onChange={(e) => handleUpdateExpenseField("amt", e.target.value)}
@@ -137,7 +170,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                 dateYYYYMMDD={expense.date} 
                 updateDate={handleUpdateDateField}
                 label={Constants.CONTENT.FORMS.EXPENSE.DATE_FIELD}
-                error={errorMsgs.date}
+                errorMessage={errorMsgs.date}
                 helperText={Constants.CONTENT.FORMS.EXPENSE.DATE_FIELD_HELPER}
                 sx={formStyles.textField}
               />
@@ -149,7 +182,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
                   errorMsgs.title === null ? Constants.CONTENT.FORMS.EXPENSE.EXPENSE_TITLE_FIELD_HELPER :
                   errorMsgs.title
                 }
-                error={errorMsgs.title}
+                error={errorMsgs.title !== null}
                 value={expense.title}
                 required
                 onChange={(e) => handleUpdateExpenseField("title", e.target.value)}
@@ -170,7 +203,7 @@ const ExpenseItem = ({ isMobileDisplay }) => {
           </Grid>
         </Paper>
         <Grid xs>
-          <Button variant='contained' onClick={validateFormErrors} sx={formStyles.btn}>
+          <Button variant='contained' onClick={async () => { await writeExpenseEntry(); }} sx={formStyles.btn}>
             {Constants.CONTENT.FORMS.EXPENSE.SUBMIT_BTN}
           </Button>
         </Grid>

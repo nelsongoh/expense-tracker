@@ -4,7 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TextField from '@mui/material/TextField';
 import dayjs from 'dayjs';
 
-const AppDatePicker = ({ dateYYYYMMDD, updateDate, label, helperText, error, sx }) => {
+const AppDatePicker = ({ dateYYYYMMDD, updateDate, label, helperText, errorMessage, sx }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
@@ -18,7 +18,7 @@ const AppDatePicker = ({ dateYYYYMMDD, updateDate, label, helperText, error, sx 
           <TextField 
             sx={sx} 
             label={label} 
-            helperText={error === null ? helperText : error} 
+            helperText={errorMessage === null ? helperText : errorMessage} 
             size="small" {...params} />
         }
       />

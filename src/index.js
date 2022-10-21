@@ -3,17 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { RouterProvider } from 'react-router-dom';
-import appRouter from './routes';
 import DisplayProvider from './context/display/provider';
+import AuthProvider from './context/auth/provider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <DisplayProvider>
-      <RouterProvider router={appRouter}>
+      <AuthProvider>
         <App />
-      </RouterProvider>
+      </AuthProvider>
     </DisplayProvider>
   </React.StrictMode>
 );

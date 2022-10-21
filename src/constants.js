@@ -3,11 +3,16 @@ const Constants = Object.freeze({
     INDEX: "/",
     EXPENSE_FORM: "/item"
   }),
+  COLLECTIONS: Object.freeze({
+    EXPENSE: "Expense",
+    EXPENSE_SUBCOLLECTION_ENTRY: "Entry"
+  }),
   CONTENT: Object.freeze({
     FORMS: Object.freeze({
       AUTH: Object.freeze({
         TITLE: "Sign-up / Sign-in",
-        NAME_FIELD: "Name"
+        NAME_FIELD: "Name",
+        REGISTER_LOGIN_GOOGLE_BTN: "Register / sign-in with Google",
       }),
       EXPENSE: Object.freeze({
         TITLE: "Create an Expense",
@@ -73,10 +78,22 @@ const Constants = Object.freeze({
         ISSUER_TYPE: "The issuer type selected must be from the dropdown list provided.",
         CURRENCY: "The currency selected must be from the dropdown list provided.",
         DATE: "The date should be in a valid format.",
-        TITLE: "Please enter a title for this expense."
+        TITLE: "Please enter a title for this expense.",
+        CREATE_FAIL: "Your expense entry was not created successfully. Please try again later."
       })
+    }),
+    MUST_BE_LOGGED_IN: "You need to be logged in before using any of the features."
+  }),
+  SUCCESS_MESSAGES: Object.freeze({
+    FORMS: Object.freeze({
+      EXPENSE: "Your expense entry has been created!"
     })
-  })
+  }),
+  FORMATS: Object.freeze({
+    DATE: Object.freeze({
+      YEAR_MONTH_DATE: "YYYY-MM-DD",
+    })
+  }),
 });
 
 export default Constants;

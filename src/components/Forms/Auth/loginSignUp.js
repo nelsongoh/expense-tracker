@@ -1,9 +1,9 @@
-import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth"
-import { firebaseApp } from "../../../firebase";
+import { GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth"
+import { firebaseAuth } from "../../../firebase";
 
 const loginSignUp = async () => {
   const provider = new GoogleAuthProvider();
-  const auth = getAuth(firebaseApp);
+  const auth = firebaseAuth;
   auth.useDeviceLanguage();
 
   await signInWithRedirect(auth, provider);
@@ -15,7 +15,6 @@ const loginSignUp = async () => {
 
   try {
     const result = await getRedirectResult(auth);
-
     if (result) {
       loginSignUpResult.user = result.user;
     } 

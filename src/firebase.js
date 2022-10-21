@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getAuth, connectAuthEmulator } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCsRhVyMrx1GJA6wjFj4N8VexWJN5bp3tk",
@@ -11,8 +12,22 @@ const firebaseConfig = {
 };
 
 
-// Export the Firebase app
-export const firebaseApp = initializeApp(firebaseConfig);
+// The Firebase app
+const firebaseApp = initializeApp(firebaseConfig);
+
+// Export Firebase Auth
+export const firebaseAuth = process.env.PRODUCTION ? 
+  getAuth(firebaseApp) : (() => {
+    const devAuth = getAuth();
+    connectAuthEmulator(devAuth, "http://localhost:9099");
+    return devAuth;
+  })();
+  
 
 // Export the Firestore app
-export const firebaseDB = getFirestore(firebaseApp);
+export const firebaseDB = process.env.PRODUCTION ? 
+  getFirestore(firebaseApp) : (() => {
+    const devFirestore = getFirestore();
+    connectFirestoreEmulator(getFirestore(), 'localhost', 8080);
+    return devFirestore;
+  })();

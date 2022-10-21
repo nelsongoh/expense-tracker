@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import AuthContext from './context';
-import { firebaseApp } from '../../firebase';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { firebaseAuth } from '../../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 import FullScreenSpinner from '../../components/Spinner';
 
 const AuthProvider = ({ children }) => {
@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
   // time this application
   const [isLoading, setIsLoading] = useState(true);
 
-  const auth = getAuth(firebaseApp);
+  const auth = firebaseAuth;
   auth.useDeviceLanguage();
 
   useEffect(() => {

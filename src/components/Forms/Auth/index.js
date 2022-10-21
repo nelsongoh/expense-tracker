@@ -48,10 +48,7 @@ const AuthForm = ({ isMobileDisplay }) => {
             </Typography>
           </Grid>
           <Grid xs display="flex" justifyContent="center" alignItems="center">
-            <TextField variant="outlined" label={Constants.CONTENT.FORMS.AUTH.NAME_FIELD} sx={formStyles.textField} />
-          </Grid>
-          <Grid xs display="flex" justifyContent="center" alignItems="center">
-            <Button variant="contained" onClick={registerOrLogin}>Sign up / in with Google</Button>
+            <Button variant="contained" onClick={registerOrLogin}>{Constants.CONTENT.FORMS.AUTH.REGISTER_LOGIN_GOOGLE_BTN}</Button>
           </Grid>
         </Grid>
       </Paper>

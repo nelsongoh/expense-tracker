@@ -13,8 +13,7 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "app",
-        "region": "asia-southeast1"
+        "function": "app"
       }
     ]
   },

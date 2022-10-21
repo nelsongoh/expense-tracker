@@ -16,18 +16,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 // Export Firebase Auth
-export const firebaseAuth = process.env.PRODUCTION ? 
-  getAuth(firebaseApp) : (() => {
-    const devAuth = getAuth();
-    connectAuthEmulator(devAuth, "http://localhost:9099");
-    return devAuth;
-  })();
-  
+export const firebaseAuth = getAuth(firebaseApp);
 
-// Export the Firestore app
-export const firebaseDB = process.env.PRODUCTION ? 
-  getFirestore(firebaseApp) : (() => {
-    const devFirestore = getFirestore();
-    connectFirestoreEmulator(getFirestore(), 'localhost', 8080);
-    return devFirestore;
-  })();
+// Export Firestore
+export const firebaseDB = getFirestore(firebaseApp);

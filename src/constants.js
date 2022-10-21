@@ -12,7 +12,7 @@ const Constants = Object.freeze({
       AUTH: Object.freeze({
         TITLE: "Sign-up / Sign-in",
         NAME_FIELD: "Name",
-        REGISTER_LOGIN_GOOGLE_BTN: "Sign up / in with Google",
+        REGISTER_LOGIN_GOOGLE_BTN: "Register / sign-in with Google",
       }),
       EXPENSE: Object.freeze({
         TITLE: "Create an Expense",

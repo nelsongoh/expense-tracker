@@ -21,7 +21,7 @@ const PaymentMethodEntryMobileDisplay = ({
   const formStyles = Styles(isMobileDisplay);
 
   return (
-    <Grid container direction="column" alignItems="center" sx={formStyles.parentGrid}>
+    <Grid container direction="column" alignItems="center">
       <TableContainer>
         <Table>
           <TableHead>

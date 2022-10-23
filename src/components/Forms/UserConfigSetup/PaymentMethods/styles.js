@@ -2,9 +2,6 @@ const Styles = (isMobileDisplay) => ({
   buttons: {
     marginTop: 5,
   },
-  parentGrid: {
-    padding: 0
-  },
   newEntryFormGrid: {
     marginTop: 2,
     paddingLeft: 0,

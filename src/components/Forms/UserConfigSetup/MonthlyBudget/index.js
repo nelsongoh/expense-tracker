@@ -31,7 +31,7 @@ const ConfigMonthlyBudget = () => {
         label={Constants.CONTENT.FORMS.USER_CONFIG_SETUP.MONTHLY_BUDGET_FIELD}
         error={errorMsg !== null}
         helperText={errorMsg ? errorMsg : Constants.CONTENT.FORMS.USER_CONFIG_SETUP.MONTHLY_BUDGET_HELPER_TEXT}
-        sx={formStyles.textField}
+        fullWidth
         InputProps={{
           startAdornment: 
           <InputAdornment position="start">

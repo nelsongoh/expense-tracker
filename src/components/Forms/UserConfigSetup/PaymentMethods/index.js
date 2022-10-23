@@ -1,16 +1,11 @@
 import { useState } from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
-import Button from '@mui/material/Button';
-import { useOutletContext, useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import Constants from '../../../../constants';
-import Styles from './styles';
 import validateNewPaymentMethodEntry from './validation';
 import PaymentMethodEntryMobileDisplay from './mobile';
 
 const ConfigPaymentMethods = () => {
-  const { isMobileDisplay, configData, setConfigData } = useOutletContext();
-  const navigate = useNavigate();
-  const formStyles = Styles(isMobileDisplay);
+  const { configData, setConfigData } = useOutletContext();
 
   const [newPaymentEntry, setNewPaymentEntry] = useState({
     paymentName: "",
@@ -50,36 +45,17 @@ const ConfigPaymentMethods = () => {
   }
 
   return (
-    <>
-      <PaymentMethodEntryMobileDisplay 
-        isMobileDisplay
-        paymentMethodData={configData.paymentMethods}
-        paymentName={newPaymentEntry.paymentName}
-        updatePaymentEntry={handleUpdateNewPaymentEntryField}
-        paymentIssuer={newPaymentEntry.paymentIssuer}
-        paymentType={newPaymentEntry.paymentType}
-        addPaymentMethod={addPaymentMethod}
-        removePaymentMethod={removePaymentMethod}
-        errorMsgs={errorMsgs}
-      />
-      <Grid container direction="row" spacing={3} justifyContent="center" sx={formStyles.buttons}>
-        <Grid>
-          <Button 
-            onClick={() => { navigate(Constants.PATHS.CONFIG.ROOT + "/" + Constants.PATHS.CONFIG.SUB_CONFIG_TWO) }}
-          >
-            {Constants.CONTENT.FORMS.USER_CONFIG_SETUP.BACK_BTN}
-          </Button>
-        </Grid>
-        <Grid>
-          <Button 
-            variant="contained" 
-            onClick={() => { navigate(Constants.PATHS.CONFIG.ROOT + "/" + Constants.PATHS.CONFIG.SUB_CONFIG_FOUR); }}
-          >
-            {Constants.CONTENT.FORMS.USER_CONFIG_SETUP.NEXT_BTN}
-          </Button>
-        </Grid>
-      </Grid>
-    </>
+    <PaymentMethodEntryMobileDisplay 
+      isMobileDisplay
+      paymentMethodData={configData.paymentMethods}
+      paymentName={newPaymentEntry.paymentName}
+      updatePaymentEntry={handleUpdateNewPaymentEntryField}
+      paymentIssuer={newPaymentEntry.paymentIssuer}
+      paymentType={newPaymentEntry.paymentType}
+      addPaymentMethod={addPaymentMethod}
+      removePaymentMethod={removePaymentMethod}
+      errorMsgs={errorMsgs}
+    />
   );
 }
 

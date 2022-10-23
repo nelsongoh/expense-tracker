@@ -9,6 +9,7 @@ import ConfigUserName from './components/Forms/UserConfigSetup/UserName';
 import ConfigMonthlyBudget from './components/Forms/UserConfigSetup/MonthlyBudget';
 import ConfigPaymentMethods from './components/Forms/UserConfigSetup/PaymentMethods';
 import ConfigSpendCategories from './components/Forms/UserConfigSetup/SpendCategories';
+import { getUserConfig } from './dao/userConfig';
 
 const App = ({ children }) => {
   const authUser = useContext(AuthContext);
@@ -25,6 +26,9 @@ const App = ({ children }) => {
     {
       path: Constants.PATHS.CONFIG.ROOT,
       element: authUser !== null ? <UserConfigSetupScene /> : <Navigate to={Constants.PATHS.INDEX} replace />,
+      loader: async () => {
+        return await getUserConfig(authUser.uid);
+      },
       children: [
         {
           path: Constants.PATHS.CONFIG.SUB_CONFIG_ONE,

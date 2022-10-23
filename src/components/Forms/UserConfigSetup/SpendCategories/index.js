@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useOutletContext, useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import Grid from '@mui/material/Unstable_Grid2';
-import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import TextField from '@mui/material/TextField';
@@ -12,7 +11,7 @@ import validateSpendCategoryEntry from './validation';
 
 const ConfigSpendCategories = () => {
   const { isMobileDisplay, configData, setConfigData } = useOutletContext();
-  const navigate = useNavigate();
+  
   const formStyles = Styles(isMobileDisplay);
   const [spendCategory, setSpendCategory] = useState("");
   const [error, setError] = useState(null);
@@ -65,23 +64,6 @@ const ConfigSpendCategories = () => {
           ))}
         </Grid> : null
       }
-      <Grid container direction="row" spacing={3} justifyContent="center" sx={formStyles.buttons}>
-        <Grid>
-          <Button 
-            onClick={() => { navigate(Constants.PATHS.CONFIG.ROOT + "/" + Constants.PATHS.CONFIG.SUB_CONFIG_THREE) }}
-          >
-            {Constants.CONTENT.FORMS.USER_CONFIG_SETUP.BACK_BTN}
-          </Button>
-        </Grid>
-        <Grid>
-          <Button 
-            variant="contained" 
-            onClick={() => {  }}
-          >
-            {Constants.CONTENT.FORMS.USER_CONFIG_SETUP.SAVE_BTN}
-          </Button>
-        </Grid>
-      </Grid>
     </>
   );
 }

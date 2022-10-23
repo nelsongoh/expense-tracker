@@ -60,7 +60,12 @@ const ConfigSpendCategories = () => {
       {configData.spendingCategories.length > 0 ? 
         <Grid xs sx={formStyles.categoryChipGrid}>
           {configData.spendingCategories.map((spendCategory, idx) => (
-            <Chip sx={formStyles.categoryChip} label={spendCategory} onDelete={() => { handleDeleteCategory(idx) }} />
+            <Chip 
+              sx={formStyles.categoryChip} 
+              label={spendCategory} 
+              onDelete={() => { handleDeleteCategory(idx) }}
+              key={idx}
+            />
           ))}
         </Grid> : null
       }

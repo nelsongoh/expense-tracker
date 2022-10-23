@@ -33,7 +33,7 @@ const ConfigUserName = () => {
         label={Constants.CONTENT.FORMS.USER_CONFIG_SETUP.NAME_FIELD}
         error={errorMsg !== null}
         helperText={errorMsg ? errorMsg : Constants.CONTENT.FORMS.USER_CONFIG_SETUP.NAME_HELPER_TEXT}
-        sx={formStyles.textField} 
+        fullWidth 
         value={configData.userName}
         onChange={(e) => { handleUpdateName(e.target.value) }}
       />

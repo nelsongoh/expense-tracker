@@ -9,7 +9,7 @@ const validateNameEntry = (name) => {
     name === null ||
     typeof name === "undefined"
   ) {
-    errorMsg = Constants.ERROR_MESSAGES.FORMS.USER_CONFIG_SETUP.PAYMENT_NAME;
+    errorMsg = Constants.ERROR_MESSAGES.FORMS.USER_CONFIG_SETUP.USER_NAME;
   }
 
   return errorMsg;

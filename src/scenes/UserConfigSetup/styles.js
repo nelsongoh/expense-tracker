@@ -29,6 +29,9 @@ const Styles = (isMobileDisplay) => ({
     '& .MuiStepLabel-root .Mui-active': {
       color: 'primary.main', // circle color (ACTIVE)
     },
+    '& .MuiStepLabel-root .Mui-error': {
+      color: 'red', // circle color (ERROR)
+    },
   },
   configFields: {
     paddingLeft: 0, 

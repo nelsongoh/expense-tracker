@@ -1,6 +1,7 @@
 const Constants = Object.freeze({
   PATHS: Object.freeze({
     INDEX: "/",
+    HOME: "/home",
     EXPENSE_FORM: "/item",
     CONFIG: Object.freeze({
       ROOT: "/config",

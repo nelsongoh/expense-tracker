@@ -5,6 +5,7 @@ import Constants from "./constants";
 import LandingScene from "./scenes/Landing";
 import ExpenseFormScene from "./scenes/ExpenseForm";
 import UserConfigSetupScene from './scenes/UserConfigSetup';
+import HomeScene from "./scenes/Home";
 import ConfigUserName from './components/Forms/UserConfigSetup/UserName';
 import ConfigMonthlyBudget from './components/Forms/UserConfigSetup/MonthlyBudget';
 import ConfigPaymentMethods from './components/Forms/UserConfigSetup/PaymentMethods';
@@ -17,7 +18,11 @@ const App = ({ children }) => {
     {
       path: Constants.PATHS.INDEX,
       element: authUser === null ? <LandingScene /> : 
-        <Navigate to={Constants.PATHS.EXPENSE_FORM} replace />,
+        <Navigate to={Constants.PATHS.HOME} replace />,
+    },
+    {
+      path: Constants.PATHS.HOME,
+      element: authUser !== null ? <HomeScene /> : <Navigate to={Constants.PATHS.INDEX} replace />
     },
     {
       path: Constants.PATHS.EXPENSE_FORM,

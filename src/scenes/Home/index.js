@@ -1,6 +1,12 @@
+import { useContext } from "react";
+import DisplayContext from '../../context/display/context';
+import HomeScreenMobile from "./mobile";
+import HomeScreenDesktop from "./desktop";
+
 const HomeScene = () => {
+  const { isMobileDisplay } = useContext(DisplayContext);
   return (
-    null
+    isMobileDisplay ? <HomeScreenMobile /> : <HomeScreenDesktop />
   );
 }
 

@@ -1,17 +1,51 @@
 const Constants = Object.freeze({
   PATHS: Object.freeze({
     INDEX: "/",
-    EXPENSE_FORM: "/item"
+    HOME: "/home",
+    EXPENSE_FORM: "/item",
+    CONFIG: Object.freeze({
+      ROOT: "/config",
+      SUB_CONFIG_ONE: "1",
+      SUB_CONFIG_TWO: "2",
+      SUB_CONFIG_THREE: "3",
+      SUB_CONFIG_FOUR: "4",
+    }),
   }),
   COLLECTIONS: Object.freeze({
     EXPENSE: "Expense",
-    EXPENSE_SUBCOLLECTION_ENTRY: "Entry"
+    EXPENSE_SUBCOLLECTION_ENTRY: "Entry",
+    APPLICATION_CONFIG: "ApplicationConfiguration",
   }),
   CONTENT: Object.freeze({
     FORMS: Object.freeze({
+      USER_CONFIG_SETUP: Object.freeze({
+        TITLE: "Expense Tracker Configuration",
+        CONFIG_STEPS: Object.freeze([
+          "Provide your name",
+          "Set your monthly budget",
+          "Add payment methods",
+          "Set up spend categories"
+        ]),
+        SKIP_BTN: "SKIP SETUP",
+        NEXT_BTN: "NEXT",
+        BACK_BTN: "BACK",
+        SAVE_BTN: "SAVE",
+        NAME_FIELD: "Name",
+        NAME_HELPER_TEXT: "What's your name!",
+        MONTHLY_BUDGET_FIELD: "Monthly Budget",
+        MONTHLY_BUDGET_HELPER_TEXT: "How much do you plan to cap your spending to each month?",
+        SPEND_CATEGORIES_FIELD: "Custom spending category",
+        SPEND_CATEGORIES_DEFAULT: Object.freeze([
+          "Food", "Transport", "Utilities", "Entertainment", "Shopping"
+        ]),
+        SPEND_CATEGORIES_HELPER_TEXT: "Create your own spend category here",
+        PAYMENT_METHOD_FIELD: "Payment method",
+        PAYMENT_ISSUER_FIELD: "Issuing bank",
+        PAYMENT_TYPE_FIELD: "Payment type",
+        NO_PAYMENT_METHODS: "You do not have any payment methods set up.",
+      }),
       AUTH: Object.freeze({
         TITLE: "Sign-up / Sign-in",
-        NAME_FIELD: "Name",
         REGISTER_LOGIN_GOOGLE_BTN: "Register / sign-in with Google",
       }),
       EXPENSE: Object.freeze({
@@ -80,7 +114,16 @@ const Constants = Object.freeze({
         DATE: "The date should be in a valid format.",
         TITLE: "Please enter a title for this expense.",
         CREATE_FAIL: "Your expense entry was not created successfully. Please try again later."
-      })
+      }),
+      USER_CONFIG_SETUP: Object.freeze({
+        USER_NAME: "Please enter your name.",
+        MONTHLY_BUDGET: "Please enter an amount greater than 0.",
+        PAYMENT_NAME: "Please enter a name for the payment method you are adding.",
+        PAYMENT_TYPE: "Please select a valid payment type.",
+        PAYMENT_ISSUER: "Please enter a valid issuer name for the payment method you are adding.",
+        INVALID_PAYMENT_METHOD: "One or more payment methods have invalid values.",
+        SPEND_CATEGORY: "Please enter a valid spend category.",
+      }),
     }),
     MUST_BE_LOGGED_IN: "You need to be logged in before using any of the features."
   }),

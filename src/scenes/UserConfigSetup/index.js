@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import DisplayContext from "../../context/display/context";
 import AuthContext from "../../context/auth/context";
 import Styles from './styles';
@@ -34,6 +36,7 @@ const UserConfigSetupScene = () => {
     setRelativePageIdx(Number(location.pathname[location.pathname.length - 1]) - 1)
   }, [location.pathname]);
 
+  const [snackbarError, setSnackbarError] = useState(null);
   const pageNavConfig = {
     0: {
       buttonLeft: {
@@ -102,13 +105,24 @@ const UserConfigSetupScene = () => {
           const allFieldsOutcome = validateAllConfigEntries(configFormData);
           if (Object.values(allFieldsOutcome).every((outcome) => outcome === null)) {
             const { isSuccess, errorMsg } = await createOrReplaceUserConfig(configFormData, authUser.uid);
-            console.log(isSuccess);
-            // TODO: If successful, navigate to the Home page
-            // TOOD: Else if not successful (error writing to DB), display an error on the page
+            if (isSuccess) {
+              navigate(Constants.PATHS.HOME);
+            } else {
+              // Remove the stepper errors
+              setStepError([false, false, false, false]);
+              setSnackbarError(errorMsg);
+            }
+            
           } else {
-            console.log(allFieldsOutcome);
-            // TODO: Display an error on the page that the configuration fields have errors
-            // TODO: Update the errors on the stepper
+            const stepperError = [];
+            Object.values(allFieldsOutcome).forEach((outcome) => {
+              if (outcome) {
+                stepperError.push(true);
+              } else {
+                stepperError.push(false);
+              }
+            });
+            setStepError(stepperError);
           }
         }
       }
@@ -124,6 +138,17 @@ const UserConfigSetupScene = () => {
   
   return (
     <Box display="flex" justifyContent="center" alignItems="center" maxHeight="100vh" sx={formStyles.box}>
+      <Snackbar 
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
+        open={snackbarError !== null}
+        autoHideDuration={9000}
+        onClose={() => setSnackbarError(null)}
+        key={'topcenter'}
+      >
+        <MuiAlert variant='filled' severity='success' onClose={() => setSnackbarError(null)}>
+          {snackbarError}
+        </MuiAlert>
+      </Snackbar>
       <Grid container direction="column" spacing={6} alignItems="center">
         <Paper variant='outlined' sx={formStyles.paper}>
           <Grid xs>

@@ -26,7 +26,7 @@ const MobileNav = ({ navValue }) => {
           <BottomNavigationAction 
             label={Constants.CONTENT.NAVBAR.DASHBOARD} 
             icon={<AssessmentIcon />} 
-            onClick={() => {  }}  
+            onClick={() => { navigate(Constants.PATHS.DASHBOARD); }}  
           />
           <BottomNavigationAction 
             label={Constants.CONTENT.NAVBAR.CONFIG} 

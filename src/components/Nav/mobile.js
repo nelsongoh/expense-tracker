@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import CreateIcon from '@mui/icons-material/Create';
+import HomeIcon from '@mui/icons-material/Home';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Styles from './styles';
@@ -19,8 +19,8 @@ const MobileNav = ({ navValue }) => {
       <Paper sx={styles.mobileNavBarBackground} elevation={3}>
         <BottomNavigation showLabels value={navValue}>
           <BottomNavigationAction 
-            label={Constants.CONTENT.NAVBAR.CREATE} 
-            icon={<CreateIcon />}
+            label={Constants.CONTENT.NAVBAR.HOME} 
+            icon={<HomeIcon />}
             onClick={() => { navigate(Constants.PATHS.HOME); }}
           />
           <BottomNavigationAction 

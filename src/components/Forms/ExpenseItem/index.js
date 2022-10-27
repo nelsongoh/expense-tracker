@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import AuthContext from '../../../context/auth/context';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -16,9 +17,10 @@ import Constants from '../../../constants';
 import validateExpenseItem from './validation';
 import { createExpenseEntry } from '../../../dao/expense';
 
-const ExpenseItem = ({ isMobileDisplay }) => {
-  const formStyles = Styles(isMobileDisplay);
+const ExpenseItem = () => {
   const authUser = useContext(AuthContext);
+  const { isMobileDisplay } = useOutletContext();
+  const formStyles = Styles(isMobileDisplay);
 
   const [expense, setExpense] = useState({
     amt: "",

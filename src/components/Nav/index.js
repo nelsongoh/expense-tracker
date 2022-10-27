@@ -11,7 +11,10 @@ const Navbar = () => {
 
   useEffect(() => {
     const currPath = location.pathname;
-    if (currPath === Constants.PATHS.HOME) {
+    if (
+      currPath === Constants.PATHS.HOME ||
+      currPath === Constants.PATHS.HOME_CREATE_EXPENSE
+    ) {
       setCurrNavIdx(0);
     } else if (currPath === Constants.PATHS.CONFIG_ONE) {
       setCurrNavIdx(2);

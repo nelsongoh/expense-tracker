@@ -42,7 +42,7 @@ const UserConfigSetupScene = () => {
       buttonLeft: {
         text: Constants.CONTENT.FORMS.USER_CONFIG_SETUP.SKIP_BTN,
         func: () => {
-          navigate(Constants.PATHS.INDEX)
+          navigate(Constants.PATHS.INDEX.ROOT)
         }
       },
       buttonRight: {

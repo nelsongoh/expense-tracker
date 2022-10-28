@@ -1,7 +1,17 @@
 const Constants = Object.freeze({
   PATHS: Object.freeze({
-    INDEX: "/",
+    REGISTER_LOGIN: "/sign-up-in",
+    INDEX: Object.freeze({
+      ROOT: "/",
+      HOME: Object.freeze({
+        ROOT: "home",
+        CREATE_EXPENSE_ENTRY: "create-expense",
+      }),
+      DASHBOARD: "dashboard",
+    }),
     HOME: "/home",
+    HOME_CREATE_EXPENSE: "/home/create-expense",
+    DASHBOARD: "/dashboard",
     EXPENSE_FORM: "/item",
     CONFIG: Object.freeze({
       ROOT: "/config",
@@ -10,6 +20,7 @@ const Constants = Object.freeze({
       SUB_CONFIG_THREE: "3",
       SUB_CONFIG_FOUR: "4",
     }),
+    CONFIG_ONE: "/config/1",
   }),
   COLLECTIONS: Object.freeze({
     EXPENSE: "Expense",
@@ -17,6 +28,16 @@ const Constants = Object.freeze({
     APPLICATION_CONFIG: "ApplicationConfiguration",
   }),
   CONTENT: Object.freeze({
+    NAVBAR: Object.freeze({
+      HOME: "Home",
+      DASHBOARD: "Dashboard",
+      CONFIG: "Configuration",
+    }),
+    HOME: Object.freeze({
+      TITLE: "Home",
+      DEFAULT_EXPENSE_ENTRY: "Expense Entry",
+      CREATE_ENTRY_BTN: "Create Entry",
+    }),
     FORMS: Object.freeze({
       USER_CONFIG_SETUP: Object.freeze({
         TITLE: "Expense Tracker Configuration",
@@ -61,6 +82,8 @@ const Constants = Object.freeze({
         DATE_FIELD_HELPER: "When was this spent?",
         PAYMENT_MODE_FIELD: "Mode of payment",
         PAYMENT_MODE_FIELD_HELPER: "How was this paid by?",
+        PAYMENT_NAME_FIELD: "Payment method name",
+        PAYMENT_NAME_FIELD_HELPER: "Name of the payment method, e.g. AMEX Black",
         ISSUER_TYPE_FIELD: "Issuer type",
         ISSUER_TYPE_FIELD_HELPER: "How was this paid through?",
         CURRENCY_FIELD: "Currency",
@@ -104,6 +127,11 @@ const Constants = Object.freeze({
       ])
     }),
   }),
+  ALERT_TYPE: Object.freeze({
+    ERROR: 'error',
+    SUCCESS: 'success',
+    WARNING: 'warning',
+  }), 
   ERROR_MESSAGES: Object.freeze({
     FORMS: Object.freeze({
       EXPENSE: Object.freeze({

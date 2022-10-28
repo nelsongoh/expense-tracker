@@ -96,8 +96,8 @@ const ExpenseItem = () => {
   };
 
   return (
-    <Stack display="flex" justifyContent="center" alignItems="center" maxHeight={maxContentHeight}>
-      <Grid container direction="column" alignItems="center" spacing={3} sx={formStyles.formGrid}>
+    <Stack display="flex" justifyContent="center" alignItems="center" maxHeight={isMobileDisplay ? maxContentHeight : undefined}>
+      <Grid container direction="column" alignItems="center" spacing={3} sx={isMobileDisplay ? formStyles.formGrid : undefined}>
         <Paper variant='outlined' sx={formStyles.paper}>
           <Grid container direction="column" spacing={3}>
             {/* This is the form title */}
@@ -107,8 +107,8 @@ const ExpenseItem = () => {
               </Typography>
             </Grid>
             {/* This is the row for the payment mode and issuer type */}
-            <Grid container display="flex" spacing={1}>
-              <Grid xs={isMobileDisplay ? 5 : 6}>
+            <Grid xs>
+              <Stack direction="row" justifyContent="center" spacing={isMobileDisplay ? 2 : 4}>
                 <TextField
                   label={Constants.CONTENT.FORMS.EXPENSE.PAYMENT_MODE_FIELD}
                   helperText={isMobileDisplay ? "" : Constants.CONTENT.FORMS.EXPENSE.PAYMENT_MODE_FIELD_HELPER}
@@ -129,8 +129,6 @@ const ExpenseItem = () => {
                     <MenuItem key={Math.random()} value={paymentMode.value}>{paymentMode.label}</MenuItem>
                   ))}
                 </TextField>
-              </Grid>
-              <Grid xs>
                 <TextField
                   label={Constants.CONTENT.FORMS.EXPENSE.ISSUER_TYPE_FIELD}
                   helperText={isMobileDisplay ? "" : Constants.CONTENT.FORMS.EXPENSE.ISSUER_TYPE_FIELD_HELPER}
@@ -154,7 +152,7 @@ const ExpenseItem = () => {
                     <MenuItem key={Math.random()} value={expense.issuerType}>{expense.issuerType}</MenuItem>
                   ) : null}
                 </TextField>
-              </Grid>
+              </Stack>
             </Grid>
             {/* This is the payment name field */}
             <Grid xs display="flex" justifyContent="center" alignItems="center">
@@ -173,8 +171,8 @@ const ExpenseItem = () => {
               />
             </Grid>
             {/* This is the row for the currency and amount */}
-            <Grid container display="flex" spacing={1}>
-              <Grid xs={isMobileDisplay ? 4 : 6}>
+            <Grid xs>
+              <Stack direction="row" justifyContent="center" spacing={isMobileDisplay ? 2 : 4}>
                 <TextField
                   label={Constants.CONTENT.FORMS.EXPENSE.CURRENCY_FIELD}
                   helperText={isMobileDisplay ? "" : Constants.CONTENT.FORMS.EXPENSE.CURRENCY_FIELD_HELPER}
@@ -190,8 +188,6 @@ const ExpenseItem = () => {
                     <MenuItem key={Math.random()} value={currency.value}>{currency.label}</MenuItem>
                   ))}
                 </TextField>
-              </Grid>
-              <Grid xs>
                 <TextField
                   label={Constants.CONTENT.FORMS.EXPENSE.AMOUNT_FIELD}
                   helperText={
@@ -212,7 +208,7 @@ const ExpenseItem = () => {
                   inputProps={{ inputMode: 'decimal' }}
                   size="small"
                   sx={formStyles.amtField} />
-              </Grid>
+              </Stack>
             </Grid>
             {/* This is the datepicker */}
             <Grid xs display="flex" justifyContent="center" alignItems="center">

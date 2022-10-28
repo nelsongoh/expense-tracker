@@ -8,7 +8,7 @@ const Styles = (isMobileDisplay) => ({
     marginBottom: 'auto',
     marginLeft: 3,
     marginRight: 3,
-    maxWidth: isMobileDisplay ? null : 480,
+    maxWidth: isMobileDisplay ? null : 720,
     paddingTop: 2,
     paddingLeft: 2,
     paddingRight: 2,
@@ -22,20 +22,20 @@ const Styles = (isMobileDisplay) => ({
     overflowY: 'scroll'
   },
   paymentModeField: {
-    width: isMobileDisplay ? '18ch' : '28ch'
+    width: isMobileDisplay ? '18ch' : '30ch'
   },
   issuerTypeField: {
     marginLeft: isMobileDisplay ? 3 : 0,
-    width: isMobileDisplay ? '19ch' : '28ch'
+    width: isMobileDisplay ? '19ch' : '30ch'
   },
   currencyField: {
-    width: isMobileDisplay ? '12ch' : '28ch'
+    width: isMobileDisplay ? '12ch' : '30ch'
   },
   amtField: {
-    width: isMobileDisplay ? '25ch' : '28ch'
+    width: isMobileDisplay ? '25ch' : '30ch'
   },
   textField: {
-    width: isMobileDisplay ? '38ch' : '64ch'
+    width: isMobileDisplay ? '39ch' : '64ch'
   },
   btn: {
     marginTop: isMobileDisplay ? 2 : 0

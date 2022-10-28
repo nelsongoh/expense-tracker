@@ -63,6 +63,21 @@ const ExpenseItem = () => {
     setExpense({...expense, date: newValue.format(Constants.FORMATS.DATE.YEAR_MONTH_DATE)});
   }
 
+  const handleSelectCategories = (selectedCategory) => {
+    const selectedCategoryIdx = expense.paymentCategories.indexOf(selectedCategory);
+    if (selectedCategoryIdx > -1) {
+      setExpense((prevState) => ({
+        ...prevState, 
+        paymentCategories: prevState.paymentCategories.filter(category => category !== selectedCategory)
+      }));
+    } else {
+      setExpense((prevState) => ({
+        ...prevState, 
+        paymentCategories: [...prevState.paymentCategories, selectedCategory]
+      }));
+    }
+  }
+
   const writeExpenseEntry = async () => {
     const entryValidationOutcome = validateExpenseItem(expense);
     setErrorMsgs(entryValidationOutcome);
@@ -238,7 +253,11 @@ const ExpenseItem = () => {
             </Grid>
             {/* This is the list of expense categories to pick from */}
             <Grid display="flex" justifyContent="center" alignItems="center">
-              <ExpenseCategories />
+              <ExpenseCategories 
+                preconfigSpendCategories={spendCategories} 
+                selectedCategories={expense.paymentCategories} 
+                handleSelectCategories={handleSelectCategories} 
+              />
             </Grid>
             {/* This is the expense description */}
             <Grid xs display="flex" justifyContent="center" alignItems="center">

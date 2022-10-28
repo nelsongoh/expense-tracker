@@ -24,6 +24,7 @@ export const createExpenseEntry = async (expenseDetails, userID) => {
       issuerType: expenseDetails.issuerType,
       currency: expenseDetails.currency,
       paymentName: expenseDetails.paymentName,
+      paymentCategories: expenseDetails.paymentCategories,
     };
     await setDoc(expenseEntryRef, expenseEntryData);
     writeOutcome.isSuccess = true;

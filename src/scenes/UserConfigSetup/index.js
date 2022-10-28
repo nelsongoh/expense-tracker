@@ -28,7 +28,7 @@ const UserConfigSetupScene = () => {
     userName: userAppConfig ? userAppConfig.userName : "",
     monthlyBudget: userAppConfig ? userAppConfig.monthlyBudget : "",
     paymentMethods: userAppConfig ? userAppConfig.paymentMethods : [],
-    spendingCategories: userAppConfig ? userAppConfig.spendingCategories : 
+    spendCategories: userAppConfig ? userAppConfig.spendCategories : 
       Constants.CONTENT.FORMS.USER_CONFIG_SETUP.SPEND_CATEGORIES_DEFAULT,
   });
   const [relativePageIdx, setRelativePageIdx] = useState(Number(location.pathname[location.pathname.length - 1]) - 1);
@@ -42,7 +42,7 @@ const UserConfigSetupScene = () => {
       buttonLeft: {
         text: Constants.CONTENT.FORMS.USER_CONFIG_SETUP.SKIP_BTN,
         func: () => {
-          navigate(Constants.PATHS.INDEX)
+          navigate(Constants.PATHS.INDEX.ROOT)
         }
       },
       buttonRight: {
@@ -132,7 +132,7 @@ const UserConfigSetupScene = () => {
     userName: null,
     monthlyBudget: null,
     paymentMethods: null,
-    spendingCategories: null
+    spendCategories: null
   });
   const [stepError, setStepError] = useState([false, false, false, false]);
   

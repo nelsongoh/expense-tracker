@@ -22,7 +22,7 @@ const ConfigSpendCategories = () => {
     } else {
       setConfigData((prevState) => ({
         ...prevState,
-        spendingCategories: [...prevState.spendingCategories, newCategory]
+        spendCategories: [...prevState.spendCategories, newCategory]
       }));
       setSpendCategory("");
       setError(null);
@@ -32,7 +32,7 @@ const ConfigSpendCategories = () => {
   const handleDeleteCategory = (idxToDelete) => {
     setConfigData((prevState) => ({
       ...prevState, 
-      spendingCategories: prevState.spendingCategories.filter((_, idx) => idx !== idxToDelete)
+      spendCategories: prevState.spendCategories.filter((_, idx) => idx !== idxToDelete)
     }));
   }
 
@@ -57,9 +57,9 @@ const ConfigSpendCategories = () => {
           </Fab>
         </Grid>
       </Grid>
-      {configData.spendingCategories.length > 0 ? 
+      {configData.spendCategories.length > 0 ? 
         <Grid xs sx={formStyles.categoryChipGrid}>
-          {configData.spendingCategories.map((spendCategory, idx) => (
+          {configData.spendCategories.map((spendCategory, idx) => (
             <Chip 
               sx={formStyles.categoryChip} 
               label={spendCategory} 

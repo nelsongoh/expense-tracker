@@ -3,34 +3,49 @@ import AuthContext from './context/auth/context';
 import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
 import Constants from "./constants";
 import LandingScene from "./scenes/Landing";
-import ExpenseFormScene from "./scenes/ExpenseForm";
 import UserConfigSetupScene from './scenes/UserConfigSetup';
 import HomeScene from "./scenes/Home";
+import Navbar from './components/Nav';
 import ConfigUserName from './components/Forms/UserConfigSetup/UserName';
 import ConfigMonthlyBudget from './components/Forms/UserConfigSetup/MonthlyBudget';
 import ConfigPaymentMethods from './components/Forms/UserConfigSetup/PaymentMethods';
 import ConfigSpendCategories from './components/Forms/UserConfigSetup/SpendCategories';
+import ExpenseEntry from './components/Forms/ExpenseEntry';
 import { getUserConfig } from './dao/userConfig';
 
 const App = ({ children }) => {
   const authUser = useContext(AuthContext);
   const appRouter = createBrowserRouter([
     {
-      path: Constants.PATHS.INDEX,
-      element: authUser === null ? <LandingScene /> : 
-        <Navigate to={Constants.PATHS.HOME} replace />,
+      path: Constants.PATHS.INDEX.ROOT,
+      element: authUser !== null ? <Navbar /> : <Navigate to={Constants.PATHS.REGISTER_LOGIN} replace />,
+      children: [
+        {
+          path: Constants.PATHS.INDEX.HOME.ROOT,
+          element: authUser !== null ? <HomeScene /> : <Navigate to={Constants.PATHS.REGISTER_LOGIN} replace />,
+          loader: async () => {
+            return await getUserConfig(authUser.uid);
+          },
+          children: [
+            {
+              path: Constants.PATHS.INDEX.HOME.CREATE_EXPENSE_ENTRY,
+              element: <ExpenseEntry />
+            }
+          ]
+        },
+        {
+          path: Constants.PATHS.INDEX.DASHBOARD,
+          element: null
+        }
+      ]
     },
     {
-      path: Constants.PATHS.HOME,
-      element: authUser !== null ? <HomeScene /> : <Navigate to={Constants.PATHS.INDEX} replace />
-    },
-    {
-      path: Constants.PATHS.EXPENSE_FORM,
-      element: authUser !== null ? <ExpenseFormScene /> : <Navigate to={Constants.PATHS.INDEX} replace />
+      path: Constants.PATHS.REGISTER_LOGIN,
+      element: authUser === null ? <LandingScene /> : <Navigate to={Constants.PATHS.HOME} replace />
     },
     {
       path: Constants.PATHS.CONFIG.ROOT,
-      element: authUser !== null ? <UserConfigSetupScene /> : <Navigate to={Constants.PATHS.INDEX} replace />,
+      element: authUser !== null ? <UserConfigSetupScene /> : <Navigate to={Constants.PATHS.REGISTER_LOGIN} replace />,
       loader: async () => {
         return await getUserConfig(authUser.uid);
       },

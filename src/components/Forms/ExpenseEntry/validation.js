@@ -23,11 +23,6 @@ const validateExpenseItem = (formFields) => {
     formValidity["paymentMode"] = Constants.ERROR_MESSAGES.FORMS.EXPENSE.PAYMENT_MODE;
   }
 
-  // Validate the issuer type
-  if (!(Constants.CONTENT.ISSUER_TYPE.LIST.map((issuerType) => issuerType.value)).includes(formFields["issuerType"])) {
-    formValidity["issuerType"] = Constants.ERROR_MESSAGES.FORMS.EXPENSE.ISSUER_TYPE;
-  }
-
   // Validate the currency
   if (!(Constants.CONTENT.CURRENCY.LIST.map((currency) => currency.value)).includes(formFields["currency"])) {
     formValidity["currency"] = Constants.ERROR_MESSAGES.FORMS.EXPENSE.CURRENCY;

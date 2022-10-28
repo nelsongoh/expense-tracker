@@ -51,11 +51,11 @@ export const validateAllConfigEntries = (configEntries) => {
     }
   }
 
-  if (configEntries.spendingCategories.length > 0) {
-    for (let i = 0; i < configEntries.spendingCategories.length; i += 1) {
-      const spendCategoryOutcome = validateSpendCategoryEntry(configEntries.spendingCategories[i]);
+  if (configEntries.spendCategories.length > 0) {
+    for (let i = 0; i < configEntries.spendCategories.length; i += 1) {
+      const spendCategoryOutcome = validateSpendCategoryEntry(configEntries.spendCategories[i]);
       if (spendCategoryOutcome) {
-        outcome["spendingCategories"] = spendCategoryOutcome;
+        outcome["spendCategories"] = spendCategoryOutcome;
         break;
       }
     }

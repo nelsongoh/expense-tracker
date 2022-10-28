@@ -21,7 +21,7 @@ export const createOrReplaceUserConfig = async (configDetails, userID) => {
       userName: configDetails.userName,
       monthlyBudget: configDetails.monthlyBudget,
       paymentMethods: configDetails.paymentMethods,
-      spendingCategories: configDetails.spendingCategories,
+      spendCategories: configDetails.spendCategories,
       lastModifiedDate: Timestamp.fromDate(new Date()),
     };
     await setDoc(appConfigEntryRef, appConfigData);

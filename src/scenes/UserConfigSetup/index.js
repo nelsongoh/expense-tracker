@@ -132,7 +132,7 @@ const UserConfigSetupScene = () => {
     userName: null,
     monthlyBudget: null,
     paymentMethods: null,
-    spendingCategories: null
+    spendCategories: null
   });
   const [stepError, setStepError] = useState([false, false, false, false]);
   

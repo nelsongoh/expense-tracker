@@ -29,7 +29,12 @@ const HomeScene = () => {
     setSnackbarState({ alertType, msg });
   }
 
-  let homeScreenType = <HomeScreenDesktop />;
+  let homeScreenType = <HomeScreenDesktop 
+    existingPaymentMethods={
+      userAppConfig ? userAppConfig.paymentMethods : []
+    } 
+    handleFormState={setFormState} 
+  />;
 
   if (pathname === Constants.PATHS.HOME) {
     if (isMobileDisplay) {
@@ -39,8 +44,6 @@ const HomeScene = () => {
         } 
         handleFormState={setFormState}
       />;
-    } else {
-      homeScreenType = <HomeScreenDesktop />;
     }
   } else {
     homeScreenType = <Outlet context={{ 

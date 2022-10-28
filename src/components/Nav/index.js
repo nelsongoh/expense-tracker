@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { useLocation, Navigate } from "react-router-dom";
 import DisplayContext from "../../context/display/context";
 import MobileNav from "./mobile";
+import DesktopNav from "./desktop";
 import Constants from "../../constants";
 
 const Navbar = () => {
@@ -28,11 +29,10 @@ const Navbar = () => {
     );
   }
 
-  // TODO: Render the desktop version of the navigation
   return (
     isMobileDisplay ? (
       <MobileNav navValue={currNavIdx} /> 
-    ): null
+    ): <DesktopNav navValue={currNavIdx} />
   );
 }
 

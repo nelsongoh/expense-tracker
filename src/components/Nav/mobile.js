@@ -1,4 +1,6 @@
+import { useRef, useEffect, useContext } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import DisplayContext from '../../context/display/context';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -12,11 +14,17 @@ import Constants from '../../constants';
 const MobileNav = ({ navValue }) => {
   const styles = Styles();
   const navigate = useNavigate();
+  const mobileNavBarRef = useRef();
+  const { setMaxContentHeight } = useContext(DisplayContext);
+
+  useEffect(() => {
+    setMaxContentHeight(window.innerHeight - mobileNavBarRef.current.clientHeight);
+  }, [setMaxContentHeight]);
 
   return (
     <Box>
       <Outlet />
-      <Paper sx={styles.mobileNavBarBackground} elevation={3}>
+      <Paper sx={styles.mobileNavBarBackground} elevation={3} ref={mobileNavBarRef}>
         <BottomNavigation showLabels value={navValue}>
           <BottomNavigationAction 
             label={Constants.CONTENT.NAVBAR.HOME} 

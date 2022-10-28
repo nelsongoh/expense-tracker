@@ -11,6 +11,10 @@ const DisplayProvider = ({ children }) => {
     isMobileDisplay: isCurrMobileDisplay,
     setIsMobileDisplay: (mobileDisplayState) => {
       setDisplayState({...displayState, isMobileDisplay: mobileDisplayState })
+    },
+    maxContentHeight: '100vh',
+    setMaxContentHeight: (contentHeight) => {
+      setDisplayState((prevState) => ({ ...prevState, maxContentHeight: contentHeight }));
     }
   });
 

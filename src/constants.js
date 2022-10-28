@@ -28,6 +28,7 @@ const Constants = Object.freeze({
     APPLICATION_CONFIG: "ApplicationConfiguration",
   }),
   CONTENT: Object.freeze({
+    APP_TITLE: "xSpencr",
     NAVBAR: Object.freeze({
       HOME: "Home",
       DASHBOARD: "Dashboard",

@@ -39,7 +39,7 @@ export const validateAllConfigEntries = (configEntries) => {
   });
 
   outcome["userName"] = validateNameEntry(configEntries.userName);
-  outcome["monthlyBudget"] = validateBudgetEntry(configEntries.monthlyBudget);
+  outcome["periodBudget"] = validateBudgetEntry(configEntries.periodBudget);
 
   if (configEntries.paymentMethods.length > 0) {
     for (let i = 0; i < configEntries.paymentMethods.length; i += 1) {

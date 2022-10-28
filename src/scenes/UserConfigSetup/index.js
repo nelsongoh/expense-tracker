@@ -26,7 +26,7 @@ const UserConfigSetupScene = () => {
   const userAppConfig = useLoaderData();
   const [configFormData, setConfigFormData] = useState({
     userName: userAppConfig ? userAppConfig.userName : "",
-    monthlyBudget: userAppConfig ? userAppConfig.monthlyBudget : "",
+    periodBudget: userAppConfig ? userAppConfig.periodBudget : "",
     paymentMethods: userAppConfig ? userAppConfig.paymentMethods : [],
     spendCategories: userAppConfig ? userAppConfig.spendCategories : 
       Constants.CONTENT.FORMS.USER_CONFIG_SETUP.SPEND_CATEGORIES_DEFAULT,
@@ -68,11 +68,11 @@ const UserConfigSetupScene = () => {
       buttonRight: {
         text: Constants.CONTENT.FORMS.USER_CONFIG_SETUP.NEXT_BTN,
         func: () => {
-          const outcome = validateBudgetEntry(configFormData.monthlyBudget);
+          const outcome = validateBudgetEntry(configFormData.periodBudget);
           if (outcome) {
-            setErrorMsgs((prevState) => ({ ...prevState, monthlyBudget: outcome }));
+            setErrorMsgs((prevState) => ({ ...prevState, periodBudget: outcome }));
           } else {
-            setErrorMsgs((prevState) => ({ ...prevState, monthlyBudget: null }));
+            setErrorMsgs((prevState) => ({ ...prevState, periodBudget: null }));
             navigate(Constants.PATHS.CONFIG.ROOT + "/" + Constants.PATHS.CONFIG.SUB_CONFIG_THREE);
           }
         }
@@ -130,7 +130,7 @@ const UserConfigSetupScene = () => {
   };
   const [errorMsgs, setErrorMsgs] = useState({
     userName: null,
-    monthlyBudget: null,
+    periodBudget: null,
     paymentMethods: null,
     spendCategories: null
   });

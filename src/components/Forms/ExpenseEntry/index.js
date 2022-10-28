@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useNavigate } from 'react-router-dom';
 import AuthContext from '../../../context/auth/context';
 import DisplayContext from '../../../context/display/context';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import Stack from '@mui/material/Stack';
@@ -11,8 +10,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import AppDatePicker from '../../AppDatePicker';
 import Styles from './styles';
 import Constants from '../../../constants';
@@ -22,7 +19,8 @@ import ExpenseCategories from './ExpenseCategories';
 
 const ExpenseItem = () => {
   const authUser = useContext(AuthContext);
-  const { isMobileDisplay, formState, spendCategories } = useOutletContext();
+  const { isMobileDisplay, formState, spendCategories, updateSnackbar } = useOutletContext();
+  const navigate = useNavigate();
   const { maxContentHeight } = useContext(DisplayContext);
   const formStyles = Styles(isMobileDisplay);
 
@@ -52,8 +50,6 @@ const ExpenseItem = () => {
     issuerType: null,
     currency: null
   });
-
-  const [createExpenseOutcome, setCreateExpenseOutcome] = useState(null);
 
   const handleUpdateExpenseField = (field, newValue) => {
     setExpense({...expense, [field]: newValue});
@@ -86,33 +82,21 @@ const ExpenseItem = () => {
       if (authUser) {
         const outcome = await createExpenseEntry(expense, authUser.uid);
         if (outcome.isSuccess) {
-          setCreateExpenseOutcome(Constants.SUCCESS_MESSAGES.FORMS.EXPENSE);
+          updateSnackbar(Constants.ALERT_TYPE.SUCCESS, Constants.SUCCESS_MESSAGES.FORMS.EXPENSE);
+          // Redirect user to the Home page
+          navigate(Constants.PATHS.HOME);
         } else {
-          setCreateExpenseOutcome(Constants.ERROR_MESSAGES.FORMS.EXPENSE.CREATE_FAIL);
+          updateSnackbar(Constants.ALERT_TYPE.ERROR, Constants.ERROR_MESSAGES.FORMS.EXPENSE.CREATE_FAIL);
         }
       } else {
-        setCreateExpenseOutcome(Constants.ERROR_MESSAGES.MUST_BE_LOGGED_IN);
+        updateSnackbar(Constants.ALERT_TYPE.ERROR, Constants.ERROR_MESSAGES.MUST_BE_LOGGED_IN);
       }
+      
     }
   };
 
-  // TODO: Need more error / success states to display different severity types for the MuiAlert
-  // TODO: Upon successful creation of the entry:
-  // 1) Redirect user to the Home page
-  // 2) Display a "success" Snackbar on the Home page
   return (
     <Stack display="flex" justifyContent="center" alignItems="center" maxHeight={maxContentHeight}>
-      <Snackbar 
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
-        open={createExpenseOutcome !== null}
-        autoHideDuration={9000}
-        onClose={() => setCreateExpenseOutcome(null)}
-        key={'topcenter'}
-      >
-        <MuiAlert variant='filled' severity='success' onClose={() => setCreateExpenseOutcome(null)}>
-          {createExpenseOutcome}
-        </MuiAlert>
-      </Snackbar>
       <Grid container direction="column" alignItems="center" spacing={3} sx={formStyles.formGrid}>
         <Paper variant='outlined' sx={formStyles.paper}>
           <Grid container direction="column" spacing={3}>
@@ -177,6 +161,11 @@ const ExpenseItem = () => {
               <TextField
                 label={Constants.CONTENT.FORMS.EXPENSE.PAYMENT_NAME_FIELD}
                 helperText={Constants.CONTENT.FORMS.EXPENSE.PAYMENT_NAME_FIELD_HELPER}
+                disabled={
+                    formState.expense ? (
+                      formState.expense.paymentName ? true : false
+                    ) : false
+                  }
                 value={expense.paymentName}
                 onChange={(e) => { handleUpdateExpenseField("paymentName", e.target.value) }}
                 size="small"

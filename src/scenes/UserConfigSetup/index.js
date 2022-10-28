@@ -28,7 +28,7 @@ const UserConfigSetupScene = () => {
     userName: userAppConfig ? userAppConfig.userName : "",
     monthlyBudget: userAppConfig ? userAppConfig.monthlyBudget : "",
     paymentMethods: userAppConfig ? userAppConfig.paymentMethods : [],
-    spendingCategories: userAppConfig ? userAppConfig.spendingCategories : 
+    spendCategories: userAppConfig ? userAppConfig.spendCategories : 
       Constants.CONTENT.FORMS.USER_CONFIG_SETUP.SPEND_CATEGORIES_DEFAULT,
   });
   const [relativePageIdx, setRelativePageIdx] = useState(Number(location.pathname[location.pathname.length - 1]) - 1);

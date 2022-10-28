@@ -22,7 +22,8 @@ export const createExpenseEntry = async (expenseDetails, userID) => {
       date: Timestamp.fromDate(new Date(expenseDetails.date)),
       paymentMode: expenseDetails.paymentMode,
       issuerType: expenseDetails.issuerType,
-      currency: expenseDetails.currency
+      currency: expenseDetails.currency,
+      paymentName: expenseDetails.paymentName,
     };
     await setDoc(expenseEntryRef, expenseEntryData);
     writeOutcome.isSuccess = true;

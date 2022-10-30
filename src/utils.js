@@ -1,3 +1,15 @@
+import dayjs from "dayjs";
+import Constants from "./constants";
+
+/**
+ * Turns a Javascript Date object into a YYYY-MM-DD string
+ * @param {Date} date 
+ */
+export const dateToYYYYMMDDString = (date) => {
+  const day = dayjs(date);
+  return day.format(Constants.FORMATS.DATE.YEAR_MONTH_DATE);
+}
+
 /**
  * Recursively freeze nested objects / functions within the object.
  * @param {Object} obj 

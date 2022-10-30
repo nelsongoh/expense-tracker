@@ -16,6 +16,7 @@ import Constants from '../../../constants';
 import validateExpenseItem from './validation';
 import { createExpenseEntry } from '../../../dao/expense';
 import ExpenseCategories from './ExpenseCategories';
+import { dateToYYYYMMDDString } from '../../../utils';
 
 const ExpenseItem = () => {
   const authUser = useContext(AuthContext);
@@ -30,7 +31,7 @@ const ExpenseItem = () => {
     amt: "",
     title: "",
     desc: "",
-    date: new Date().toISOString().split('T')[0],
+    date: dateToYYYYMMDDString(new Date()),
     paymentName: formState.expense ? 
       formState.expense.paymentName : 
       "",

@@ -1,6 +1,7 @@
 import { firebaseDB } from "../../firebase";
 import { collection, doc, arrayUnion, increment, setDoc, Timestamp, getDoc } from 'firebase/firestore';
 import Constants from "../../constants";
+import { dateToYYYYMMDDString } from "../../utils";
 
 /**
  * A DAO function to create an expense entry for a given user
@@ -30,7 +31,7 @@ export const createExpenseEntry = async (expenseDetails, expensePeriodConfig, us
       }
 
       subcollectionDate.setDate(subcollectionDate.getDate() - daysOfWeekDifference);
-      expenseEntryDocumentId = subcollectionDate.toISOString().split('T')[0];
+      expenseEntryDocumentId = dateToYYYYMMDDString(subcollectionDate);
     }
     // Else if this is a monthly period entry
     else if (expensePeriodConfig.frequency === Constants.CONTENT.EXPENSE_PERIOD.FREQUENCY.MONTHLY) {
@@ -44,7 +45,7 @@ export const createExpenseEntry = async (expenseDetails, expensePeriodConfig, us
         periodStartDate.setMonth(entryDateObj.getMonth() - 1);
       }
 
-      expenseEntryDocumentId = periodStartDate.toISOString().split('T')[0];
+      expenseEntryDocumentId = dateToYYYYMMDDString(periodStartDate);
     }
 
     // Create an entry in the database
@@ -181,9 +182,9 @@ export const getExpenseDataByPeriod = async (userID, period) => {
 export const getInitialDashboardData = async (userID) => {
   const expensePeriods = await getExpenseMetadata(userID);
   if (expensePeriods.isSuccess) {
-    const latestPeriod = new Date(
+    const latestPeriod = dateToYYYYMMDDString(new Date(
       Math.max(...expensePeriods.data.map(e => new Date(e)))
-    ).toISOString().split('T')[0];
+    ));
     const latestPeriodData = await getExpenseDataByPeriod(userID, latestPeriod);
     
     if (latestPeriodData.isSuccess) {

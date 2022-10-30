@@ -21,7 +21,7 @@ const ConfigExpenseMonthStart = ({ expensePeriod, setExpensePeriod }) => {
     if (validateDateOfMonth(date)) {
       setExpensePeriod(
         Constants.CONTENT.EXPENSE_PERIOD.FREQUENCY.MONTHLY,
-        date
+        Number(date)
       )
     }
   }

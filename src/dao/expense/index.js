@@ -1,5 +1,5 @@
 import { firebaseDB } from "../../firebase";
-import { collection, doc, arrayUnion, increment, setDoc, Timestamp } from 'firebase/firestore';
+import { collection, doc, arrayUnion, increment, setDoc, Timestamp, getDoc } from 'firebase/firestore';
 import Constants from "../../constants";
 
 /**
@@ -77,6 +77,24 @@ export const createExpenseEntry = async (expenseDetails, expensePeriodConfig, us
       { merge: true }
     );
 
+    // Update the entry in the list of expense periods for this user
+    const expenseMetadataRef = doc(
+      collection(
+        firebaseDB, 
+        Constants.COLLECTIONS.EXPENSE, 
+        userID, 
+        Constants.COLLECTIONS.EXPENSE_SUBCOLLECTION_PERIOD
+      ), 
+      Constants.COLLECTIONS.EXPENSE_PERIOD_METADATA
+    );
+
+    await setDoc(
+      expenseMetadataRef, {
+        periods: arrayUnion(expenseEntryDocumentId),
+      }, 
+      { merge: true }
+    );
+
     writeOutcome.isSuccess = true;
   } catch (error) {
     console.log(error);
@@ -86,6 +104,98 @@ export const createExpenseEntry = async (expenseDetails, expensePeriodConfig, us
   return writeOutcome;
 };
 
-export const getTotalSpend = async (userID, startDate, endDate) => {
+/**
+ * Retrieves the Expense metadata for a given user to further retrieve Expense details
+ * @param {String} userID 
+ */
+export const getExpenseMetadata = async (userID) => {
+  const writeOutcome = {
+    isSuccess: false,
+    data: null,
+    errorMsg: "",
+  };
 
+  try {
+    const expenseMetadataDocRef = doc(
+      firebaseDB, 
+      Constants.COLLECTIONS.EXPENSE, 
+      userID, 
+      Constants.COLLECTIONS.EXPENSE_SUBCOLLECTION_PERIOD,
+      Constants.COLLECTIONS.EXPENSE_PERIOD_METADATA
+    );
+
+    const docSnapshot = await getDoc(expenseMetadataDocRef);
+    if (docSnapshot.exists()) {
+      writeOutcome.isSuccess = true;
+      writeOutcome.data = docSnapshot.data().periods;
+    } else {
+      writeOutcome.errorMsg = Constants.ERROR_MESSAGES.DASHBOARD.NO_METADATA_FOUND;
+    }
+  } catch (error) {
+    writeOutcome.errorMsg = Constants.ERROR_MESSAGES.DASHBOARD.METADATA_RETRIEVE_ERROR;
+  }
+
+  return writeOutcome;
+}
+
+/**
+ * Method to retrieve Expense data for a given period
+ * @param {String} userID The user ID of the user 
+ * @param {String} period The Expense period for which to retrieve the Expense data
+ */
+export const getExpenseDataByPeriod = async (userID, period) => {
+  const writeOutcome = {
+    isSuccess: false,
+    data: null,
+    errorMsg: "",
+  };
+
+  try {
+    const expenseDocRef = doc(
+      firebaseDB, 
+      Constants.COLLECTIONS.EXPENSE, 
+      userID, 
+      Constants.COLLECTIONS.EXPENSE_SUBCOLLECTION_PERIOD,
+      period
+    );
+
+    const docSnapshot = await getDoc(expenseDocRef);
+    if (docSnapshot.exists()) {
+      writeOutcome.isSuccess = true;
+      writeOutcome.data = docSnapshot.data();
+    } else {
+      writeOutcome.errorMsg = Constants.ERROR_MESSAGES.DASHBOARD.NO_EXPENSE_DATA_FOUND;
+    }
+  } catch (error) {
+    writeOutcome.errorMsg = Constants.ERROR_MESSAGES.DASHBOARD.EXPENSE_DATA_RETRIEVE_ERROR;
+  }
+
+  return writeOutcome;
+}
+
+/**
+ * A wrapper function to retrieve the initial data required to display the dashboard
+ * @param {String} userID The user's ID
+ * @returns An object containing the data, null if any of the inner data retrieval methods have failed 
+ */
+export const getInitialDashboardData = async (userID) => {
+  const expensePeriods = await getExpenseMetadata(userID);
+  if (expensePeriods.isSuccess) {
+    const latestPeriod = new Date(
+      Math.max(...expensePeriods.data.map(e => new Date(e)))
+    ).toISOString().split('T')[0];
+    const latestPeriodData = await getExpenseDataByPeriod(userID, latestPeriod);
+    
+    if (latestPeriodData.isSuccess) {
+      return {
+        periods: expensePeriods,
+        latestPeriod,
+        latestPeriodData: latestPeriodData.data,
+      }
+    } else {
+      return null;
+    }
+  }
+
+  return null;
 }

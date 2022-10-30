@@ -19,6 +19,7 @@ const Constants = Object.freeze({
       SUB_CONFIG_TWO: "2",
       SUB_CONFIG_THREE: "3",
       SUB_CONFIG_FOUR: "4",
+      SUB_CONFIG_FIVE: "5",
     }),
     CONFIG_ONE: "/config/1",
   }),
@@ -39,12 +40,29 @@ const Constants = Object.freeze({
       DEFAULT_EXPENSE_ENTRY: "Expense Entry",
       CREATE_ENTRY_BTN: "Create Entry",
     }),
+    EXPENSE_PERIOD: Object.freeze({
+      FREQUENCY: Object.freeze({
+        DAILY: "DAILY",
+        WEEKLY: "WEEKLY",
+        MONTHLY: "MONTHLY",
+      }),
+      DAY_OF_WEEK: Object.freeze({
+        MON: 1,
+        TUE: 2,
+        WED: 3,
+        THU: 4,
+        FRI: 5,
+        SAT: 6,
+        SUN: 0
+      })
+    }),
     FORMS: Object.freeze({
       USER_CONFIG_SETUP: Object.freeze({
         TITLE: "Expense Tracker Configuration",
         CONFIG_STEPS: Object.freeze([
           "Provide your name",
-          "Set your monthly budget",
+          "Define your expense period",
+          "Set your budget for the period",
           "Add payment methods",
           "Set up spend categories"
         ]),
@@ -54,8 +72,17 @@ const Constants = Object.freeze({
         SAVE_BTN: "SAVE",
         NAME_FIELD: "Name",
         NAME_HELPER_TEXT: "What's your name!",
-        MONTHLY_BUDGET_FIELD: "Monthly Budget",
-        MONTHLY_BUDGET_HELPER_TEXT: "How much do you plan to cap your spending to each month?",
+        DEFINE_PERIOD_BTN_CAPTION: "Group my expenses by:",
+        DEFINE_PERIOD_DAY_BTN: "Day",
+        DEFINE_PERIOD_WEEK_BTN: "Week",
+        DEFINE_PERIOD_WEEK_SUBTITLE: "My week starts on:",
+        DEFINE_PERIOD_WEEK_HELPER_TEXT: "If the week starts on Monday, it will end on Tuesday in the following week.",
+        DEFINE_PERIOD_MONTH_BTN: "Month",
+        DEFINE_PERIOD_MONTH_SUBTITLE: "My month starts on the:",
+        DEFINE_PERIOD_MONTH_FIELD_HELPER: "Date of the month",
+        DEFINE_PERIOD_MONTH_HELPER_TEXT: "If the month starts on the 8th of the month, it will end on the 7th of the following month.",
+        PERIOD_BUDGET_FIELD: "Budget for the period",
+        PERIOD_BUDGET_HELPER_TEXT: "How much do you plan to cap your spending in each period?",
         SPEND_CATEGORIES_FIELD: "Custom spending category",
         SPEND_CATEGORIES_DEFAULT: Object.freeze([
           "Food", "Transport", "Utilities", "Entertainment", "Shopping"
@@ -146,7 +173,10 @@ const Constants = Object.freeze({
       }),
       USER_CONFIG_SETUP: Object.freeze({
         USER_NAME: "Please enter your name.",
-        MONTHLY_BUDGET: "Please enter an amount greater than 0.",
+        PERIOD_INVALID_INPUT: "Please input a valid expense period.",
+        PERIOD_INVALID_FREQUENCY: "Please select from a valid frequency period for your expense tracking.",
+        PERIOD_INVALID_START: "Please input a valid start date.",
+        PERIOD_BUDGET: "Please enter an amount greater than 0.",
         PAYMENT_NAME: "Please enter a name for the payment method you are adding.",
         PAYMENT_TYPE: "Please select a valid payment type.",
         PAYMENT_ISSUER: "Please enter a valid issuer name for the payment method you are adding.",

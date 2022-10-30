@@ -21,9 +21,15 @@ const HomeScreenDesktop = ({ existingPaymentMethods, handleFormState }) => {
 
   const updateSelectedPaymentMethod = () => {
     let selectedPaymentMethod;
-    // If this is the first or last element in the Swiper carousel
+    // If this is the first element in the Swiper carousel (will be the template expense entry)
     // NOTE: NOT the existingPaymentMethods, but rather relative to the carousel
-    if (swiperRef.current.activeIndex === 0 || swiperRef.current.activeIndex === existingPaymentMethods.length - 1) {
+    if (
+      swiperRef.current.activeIndex === 0 || 
+      (
+        swiperRef.current.activeIndex === 2 &&
+        existingPaymentMethods.length === 1
+      )
+    ) {
       // Mark this as the expense entry which was not part of the pre-configured payment methods
       // NOTE: We assume that the first and last element will always be the default expense entry
       // which we have set as a <SwiperSlide> component

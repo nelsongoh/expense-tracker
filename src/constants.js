@@ -25,11 +25,21 @@ const Constants = Object.freeze({
   }),
   COLLECTIONS: Object.freeze({
     EXPENSE: "Expense",
-    EXPENSE_SUBCOLLECTION_ENTRY: "Entry",
+    EXPENSE_SUBCOLLECTION_PERIOD: "Period",
+    EXPENSE_PERIOD_METADATA: "Metadata",
     APPLICATION_CONFIG: "ApplicationConfiguration",
   }),
   CONTENT: Object.freeze({
     APP_TITLE: "xSpencr",
+    DASHBOARD: Object.freeze({
+      SUMMARY_TITLE: "Expense & Income Summary",
+      EXPENSE_PERIOD_SUBTITLE: "Summary for the period of:",
+      EXPENSE_PERIOD_UNAVAILABLE: "(NA) Unavailable",
+      TOTAL_SPEND: Object.freeze({
+        PREFIX: "Total spend: $",
+        SUFFIX: "/ $",
+      }),
+    }),
     NAVBAR: Object.freeze({
       HOME: "Home",
       DASHBOARD: "Dashboard",
@@ -161,6 +171,12 @@ const Constants = Object.freeze({
     WARNING: 'warning',
   }), 
   ERROR_MESSAGES: Object.freeze({
+    DASHBOARD: Object.freeze({
+      NO_METADATA_FOUND: "No Expense metadata found.",
+      METADATA_RETRIEVE_ERROR: "There was an error while retrieving the user's Expense metadata.",
+      NO_EXPENSE_DATA_FOUND: "No Expense data found.",
+      EXPENSE_DATA_RETRIEVE_ERROR: "There was an error while retrieving the user's Expense data.",
+    }),
     FORMS: Object.freeze({
       EXPENSE: Object.freeze({
         AMOUNT: "The amount must be a number that is greater than 0.",

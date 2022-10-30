@@ -3,20 +3,20 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Constants from '../../../../constants';
 
-const ConfigMonthlyBudget = () => {
+const ConfigPeriodBudget = () => {
   const { configData, setConfigData, errorMsgs } = useOutletContext();
   const handleUpdateBudget = (budget) => {
-    setConfigData((prevState) => ({ ...prevState, monthlyBudget: budget }));
+    setConfigData((prevState) => ({ ...prevState, periodBudget: budget }));
   };
 
   return (
     <TextField 
-      label={Constants.CONTENT.FORMS.USER_CONFIG_SETUP.MONTHLY_BUDGET_FIELD}
-      error={errorMsgs.monthlyBudget !== null}
+      label={Constants.CONTENT.FORMS.USER_CONFIG_SETUP.PERIOD_BUDGET_FIELD}
+      error={errorMsgs.periodBudget !== null}
       helperText={
-        errorMsgs.monthlyBudget ? 
-        errorMsgs.monthlyBudget : 
-        Constants.CONTENT.FORMS.USER_CONFIG_SETUP.MONTHLY_BUDGET_HELPER_TEXT
+        errorMsgs.periodBudget ? 
+        errorMsgs.periodBudget : 
+        Constants.CONTENT.FORMS.USER_CONFIG_SETUP.PERIOD_BUDGET_HELPER_TEXT
       }
       fullWidth
       InputProps={{
@@ -26,10 +26,10 @@ const ConfigMonthlyBudget = () => {
         </InputAdornment>
       }}
       inputProps={{ inputMode: 'decimal' }}
-      value={configData.monthlyBudget}
+      value={configData.periodBudget}
       onChange={(e) => { handleUpdateBudget(e.target.value) }}
     />
   );
 }
 
-export default ConfigMonthlyBudget;
+export default ConfigPeriodBudget;

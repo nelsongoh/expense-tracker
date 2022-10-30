@@ -19,7 +19,9 @@ import ExpenseCategories from './ExpenseCategories';
 
 const ExpenseItem = () => {
   const authUser = useContext(AuthContext);
-  const { isMobileDisplay, formState, spendCategories, updateSnackbar } = useOutletContext();
+  const { 
+    isMobileDisplay, formState, spendCategories, updateSnackbar, userAppConfig 
+  } = useOutletContext();
   const navigate = useNavigate();
   const { maxContentHeight } = useContext(DisplayContext);
   const formStyles = Styles(isMobileDisplay);
@@ -80,7 +82,7 @@ const ExpenseItem = () => {
     const isExpenseEntryValid = Object.values(entryValidationOutcome).every((value) => value === null);
     if (isExpenseEntryValid) {
       if (authUser) {
-        const outcome = await createExpenseEntry(expense, authUser.uid);
+        const outcome = await createExpenseEntry(expense, userAppConfig.expensePeriod, authUser.uid);
         if (outcome.isSuccess) {
           updateSnackbar(Constants.ALERT_TYPE.SUCCESS, Constants.SUCCESS_MESSAGES.FORMS.EXPENSE);
           // Redirect user to the Home page

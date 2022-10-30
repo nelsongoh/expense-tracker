@@ -50,6 +50,7 @@ const HomeScene = () => {
       isMobileDisplay: isMobileDisplay,
       formState,
       spendCategories: userAppConfig ? userAppConfig.spendCategories : null,
+      userAppConfig,
       updateSnackbar: handleUpdateSnackbarState
     }} />
   }

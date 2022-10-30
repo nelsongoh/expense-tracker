@@ -19,10 +19,12 @@ export const createOrReplaceUserConfig = async (configDetails, userID) => {
     const appConfigEntryRef = doc(firebaseDB, Constants.COLLECTIONS.APPLICATION_CONFIG, userID);
     const appConfigData = {
       userName: configDetails.userName,
-      monthlyBudget: configDetails.monthlyBudget,
+      expensePeriod: configDetails.expensePeriod,
+      periodBudget: configDetails.periodBudget,
       paymentMethods: configDetails.paymentMethods,
       spendCategories: configDetails.spendCategories,
       lastModifiedDate: Timestamp.fromDate(new Date()),
+
     };
     await setDoc(appConfigEntryRef, appConfigData);
     writeOutcome.isSuccess = true;

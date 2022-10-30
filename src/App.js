@@ -13,6 +13,7 @@ import ConfigExpensePeriod from './components/Forms/UserConfigSetup/DefinePeriod
 import ConfigPaymentMethods from './components/Forms/UserConfigSetup/PaymentMethods';
 import ConfigSpendCategories from './components/Forms/UserConfigSetup/SpendCategories';
 import ExpenseEntry from './components/Forms/ExpenseEntry';
+import { getInitialDashboardData } from './dao/expense';
 import { getUserConfig } from './dao/userConfig';
 
 const App = ({ children }) => {
@@ -37,6 +38,18 @@ const App = ({ children }) => {
         },
         {
           path: Constants.PATHS.INDEX.DASHBOARD,
+          loader: async () => {
+            const initialExpenseData = await getInitialDashboardData(authUser.uid);
+            if (initialExpenseData !== null) {
+              const userConfig = await getUserConfig(authUser.uid);
+              if (userConfig) {
+                return {
+                  ...initialExpenseData,
+                  userConfig,
+                };
+              }
+            }
+          },
           element: <DashboardScene />
         }
       ]

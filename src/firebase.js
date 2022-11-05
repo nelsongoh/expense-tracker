@@ -1,10 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
-import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCsRhVyMrx1GJA6wjFj4N8VexWJN5bp3tk",
-  authDomain: "xspencr.firebaseapp.com",
+  authDomain: "xspencr.web.app",
   projectId: "xspencr",
   storageBucket: "xspencr.appspot.com",
   messagingSenderId: "223810598390",

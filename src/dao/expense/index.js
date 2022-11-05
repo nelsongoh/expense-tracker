@@ -19,7 +19,7 @@ export const createExpenseEntry = async (expenseDetails, expensePeriodConfig, us
   try {
     // Determine the collection to write to in the database
     let subcollectionDate = new Date(expenseDetails.date);  // Subcollection defaults to the expense entry's date
-    let expenseEntryDocumentId = subcollectionDate.toISOString().split('T')[0]; // Defaults to the DAILY frequency
+    let expenseEntryDocumentId = dateToYYYYMMDDString(subcollectionDate); // Defaults to the DAILY frequency
 
     // If this is a weekly period entry
     if (expensePeriodConfig.frequency === Constants.CONTENT.EXPENSE_PERIOD.FREQUENCY.WEEKLY) {  
